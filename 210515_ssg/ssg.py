@@ -68,11 +68,13 @@ for	page in range(max_page):
 				item_soup = BeautifulSoup(item_result.text, "html.parser")
 				if item_result.status_code == 200:
 					content = item_soup.select_one("div.content_primary")
-					category = content.select_one("div.cate_location.notranslate.react-area")
+					category = content.select_one("div.cate_location")
 					category_list = category.select("div.lo_depth_01")
 					for idx in category_list:
 						category_value = idx.select_one('a').string
 						item_info.append(category_value)
+					while len(item_info) < 4:
+						item_info.append("")
 					cm_detail = content.select_one("div.cdtl_cm_detail")
 					basic_info = cm_detail.select_one("div.cdtl_col_rgt")
 					product_info = cm_detail.select_one("div.cdtl_tabcont")
